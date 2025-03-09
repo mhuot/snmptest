@@ -62,16 +62,9 @@ This project uses Git submodules to integrate the PromSNMP development with the 
 
 ### Initial Setup
 
-1. Clone this repository with submodules
 ```bash
 git clone --recurse-submodules <repository-url>
 cd <repository-directory>
-```
-
-2. If you've already cloned the repository without `--recurse-submodules`:
-```bash
-git submodule init
-git submodule update
 ```
 
 For detailed submodule management instructions, see [Git Submodule Setup Instructions](submodule-setup.md).
@@ -104,7 +97,9 @@ For convenience, a build script is provided to handle the Docker-based Maven bui
 ```bash
 # Make the script executable
 chmod +x build-with-docker.sh
-
+# Init and update the PromSNMP sub module
+git submodule init
+git submodule update
 # Run the build script
 ./build-with-docker.sh
 ```
