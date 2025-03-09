@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   promsnmp:
-    image: pbranestrategy/promsnmp:0.0.2
+    build:
+      context: ./PromSNMP
+      dockerfile: Dockerfile
     container_name: promsnmp
     restart: always
     networks:

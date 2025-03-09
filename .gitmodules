@@ -1,0 +1,6 @@
+[submodule "promsnmp"]
+	path = promsnmp
+	url = https://github.com/pbrane/PromSNMP.git
+[submodule "PromSNMP"]
+	path = PromSNMP
+	url = https://github.com/pbrane/PromSNMP.git

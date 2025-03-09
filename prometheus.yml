@@ -19,6 +19,6 @@ scrape_configs:
     scrape_interval: 60s  # SNMP polling interval
     static_configs:
       - targets:
-          - 'promsnmp'  # Replace with your SNMP device IP
+          - 'promsnmp:8080'  # Replace with your SNMP device IP
     metrics_path: /promSnmp/sample
 
