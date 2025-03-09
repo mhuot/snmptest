@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  promsnmp:
+    image: pbranestrategy/promsnmp:0.0.2
+    container_name: promsnmp
+    restart: always
+    networks:
+      - monitoring      
+
+  snmp-host:
+    # image: testainers/snmpd-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: snmp-host
+    restart: always
+    networks:
+      - monitoring
+    ports:
+      - 1161:161/udp
+    volumes:
+      - ./mysnmpd.conf:/etc/snmp/snmpd.conf
+  snmp-test:
+    # image: testainers/snmpd-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: snmp-test
+    restart: always
+    networks:
+      - monitoring
+    ports:
+      - 2161:161/udp
+    volumes:
+      - ./testsnmpd.conf:/etc/snmp/snmpd.conf
+  snmp-exporter:
+    image: prom/snmp-exporter
+    container_name: snmp-exporter
+    restart: always
+    networks:
+      - monitoring
+    volumes:
+      - ./example.yml:/etc/snmp_exporter/snmp.yml
+    ports:
+      - "9116:9116"
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    networks:
+      - monitoring
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    networks:
+      - monitoring
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  grafana-data:
+
