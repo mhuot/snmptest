@@ -56,12 +56,31 @@ flowchart TD
     classDef storageStyle fill:#fcf,stroke:#333,stroke-width:2px;
     classDef vizStyle fill:#ff9,stroke:#333,stroke-width:2px;
 ```
+## Project Setup
+
+This project uses Git submodules to integrate the PromSNMP development with the test bed environment.
+
+### Initial Setup
+
+1. Clone this repository with submodules
+```bash
+git clone --recurse-submodules <repository-url>
+cd <repository-directory>
+```
+
+2. If you've already cloned the repository without `--recurse-submodules`:
+```bash
+git submodule init
+git submodule update
+```
+
+For detailed submodule management instructions, see [Git Submodule Setup Instructions](submodule-setup.md).
 
 ## Components
 
 ### PromSNMP
 
-The custom `pbranestrategy/promsnmp` image is the experimental SNMP exporter being developed. It's currently in early development (version 0.0.2) and provides metrics at the `/promSnmp/sample` endpoint.
+The project builds the latest version of the PromSNMP project into a container to be used to test against.
 
 ### Test SNMP Devices
 
@@ -76,6 +95,22 @@ Standard monitoring tools are included to validate the collected metrics and pro
 - Docker and Docker Compose
 - Understanding of SNMP, MIBs, and OIDs
 - Familiarity with Prometheus exporters and metrics
+
+## Build PromSNMP with docker
+### Building with Docker
+
+For convenience, a build script is provided to handle the Docker-based Maven build process:
+
+```bash
+# Make the script executable
+chmod +x build-with-docker.sh
+
+# Run the build script
+./build-with-docker.sh
+```
+
+This script builds the PromSNMP project using Maven in a Docker container
+No local Java or Maven installation is required.
 
 ## Quick Start
 
