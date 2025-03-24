@@ -4,6 +4,8 @@ scrape_configs:
       - targets:
         - snmp-host  # SNMP device.
         - snmp-test # SNMP device.
+        - clab-routers-router1
+        - clab-routers-router2
     metrics_path: /snmp
     params:
       auth: [public_v2]
@@ -21,4 +23,18 @@ scrape_configs:
       - targets:
           - 'promsnmp:8080'  # Replace with your SNMP device IP
     metrics_path: /promSnmp/sample
+  - job_name: 'promsnmp-route'
+    scrape_interval: 60s  # SNMP polling interval
+    static_configs:
+      - targets:
+          - 'promsnmp:8080'  # Replace with your SNMP device IP
+    metrics_path: /promSnmp/router
+
+  - job_name: 'promsnmp-direct'
+    scrape_interval: 60s  # SNMP polling interval
+    static_configs:
+      - targets:
+          - 'promsnmp:8080'  # Replace with your SNMP device IP
+    metrics_path: /promSnmp/direct
+
 

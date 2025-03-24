@@ -1,15 +1,17 @@
-version: '3.8'
-
 services:
   promsnmp:
-    build:
-      context: ./PromSNMP
-      dockerfile: Dockerfile
+    image: local/promsnmp:0.0.2-SNAPSHOT
+      #build:
+      #context: ./PromSNMP
+      #dockerfile: Dockerfile
     container_name: promsnmp
+    environment:
+      - SERVER_PORT=8080
+    ports:
+      - "8080:8080"
     restart: always
     networks:
       - monitoring      
-
   snmp-host:
     # image: testainers/snmpd-container
     build:
